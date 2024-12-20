@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  useToast,
+  Heading,
+} from '@chakra-ui/react';
 import { createOrder } from '../services/buyerService';
-import { useToast } from '@chakra-ui/react';
 
 const BuyerPage = () => {
   const [formData, setFormData] = useState({
@@ -49,6 +58,8 @@ const BuyerPage = () => {
         duration: 3000,
         isClosable: true,
       });
+
+      // Reset the form after successful submission
       setFormData({
         quantity: '',
         quality: '',
@@ -68,76 +79,73 @@ const BuyerPage = () => {
   };
 
   return (
-    <div>
-      <h2>Create a New Order</h2>
+    <Box maxWidth="500px" margin="auto" padding="20px" boxShadow="lg" borderRadius="md" backgroundColor="white">
+      <Heading as="h2" size="lg" textAlign="center" marginBottom="20px">
+        Create a New Order
+      </Heading>
       <form onSubmit={handleSubmit}>
-        <label>
-          Quantity:
-          <input
+        <FormControl id="quantity" isRequired marginBottom="10px">
+          <FormLabel>Quantity (in KG)</FormLabel>
+          <Input
             type="number"
             name="quantity"
             value={formData.quantity}
             onChange={handleInputChange}
-            required
+            placeholder="Enter quantity"
           />
-        </label>
-        <br />
+        </FormControl>
 
-        <label>
-          Quality:
-          <select
+        <FormControl id="quality" isRequired marginBottom="10px">
+          <FormLabel>Quality</FormLabel>
+          <Select
             name="quality"
             value={formData.quality}
             onChange={handleInputChange}
-            required
+            placeholder="Select quality"
           >
-            <option value="">Select Quality</option>
             <option value="High">High</option>
             <option value="Medium">Medium</option>
             <option value="Low">Low</option>
-          </select>
-        </label>
-        <br />
+          </Select>
+        </FormControl>
 
-        <label>
-          Region:
-          <input
+        <FormControl id="region" isRequired marginBottom="10px">
+          <FormLabel>Region</FormLabel>
+          <Input
             type="text"
             name="region"
             value={formData.region}
             onChange={handleInputChange}
-            required
+            placeholder="Enter region"
           />
-        </label>
-        <br />
+        </FormControl>
 
-        <label>
-          Loading Date:
-          <input
+        <FormControl id="loadingDate" isRequired marginBottom="10px">
+          <FormLabel>Loading Date</FormLabel>
+          <Input
             type="date"
             name="loadingDate"
             value={formData.loadingDate}
             onChange={handleInputChange}
-            required
           />
-        </label>
-        <br />
+        </FormControl>
 
-        <label>
-          Delivery Location:
-          <input
+        <FormControl id="deliveryLocation" isRequired marginBottom="10px">
+          <FormLabel>Delivery Location</FormLabel>
+          <Input
             type="text"
             name="deliveryLocation"
             value={formData.deliveryLocation}
             onChange={handleInputChange}
-            required
+            placeholder="Enter delivery location"
           />
-        </label>
-        <br />
+        </FormControl>
 
-        <button type="submit">Submit Order</button>
+        <Button type="submit" colorScheme="teal" width="full" marginTop="20px">
+          Submit Order
+        </Button>
       </form>
-    </div>
+    </Box>
   );
 };
 
